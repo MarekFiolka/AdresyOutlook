@@ -14,7 +14,7 @@ Public Function ReadAllText( _
     localFilePath = Trim$(localFilePath)
     
     If Len(localFilePath) = 0 Then
-        Err.Raise vbObjectError + 3000, "ReadAllText", "Pusta œcie¿ka pliku."
+        Err.Raise vbObjectError + 3000, "ReadAllText", "Pusta Sciezka pliku."
     End If
     
     If Dir$(localFilePath) = vbNullString Then
@@ -47,11 +47,11 @@ CleanFail:
     Set Stream = Nothing
     
     Err.Raise vbObjectError + 3002, "ReadAllText", _
-              "Nie uda³o siê odczytaæ pliku """ & localFilePath & """ jako " & Charset & "." & vbCrLf & _
-              "Szczegó³y: " & Err.Description
+              "Nie udalo sie odczytac pliku """ & localFilePath & """ jako " & Charset & "." & vbCrLf & _
+              "Szczegoly: " & Err.Description
 End Function
 
-'@Description("Dzieli tekst na linie niezale¿nie od stylu zakoñczeñ wiersza.")
+'@Description("Dzieli tekst na linie niezaleznie od stylu zakonczen wiersza.")
 Public Function SplitLines(ByVal Text As String) As String()
 Attribute SplitLines.VB_Description = "Dzieli tekst na linie niezale¿nie od stylu zakoñczeñ wiersza."
     
@@ -65,14 +65,14 @@ Attribute SplitLines.VB_Description = "Dzieli tekst na linie niezale¿nie od styl
     
 End Function
 
-'@Description("Sprawdza poprawnoœæ œcie¿ki do pliku.")
+'@Description("Sprawdza poprawnosc sciezki do pliku.")
 '@EntryPoint
 Public Sub ValidateFilePath(ByVal Value As String, ByVal ParamName As String)
 Attribute ValidateFilePath.VB_Description = "Sprawdza poprawnoœæ œcie¿ki do pliku."
     
     If Len(Trim$(Value)) = 0 Then
         Err.Raise vbObjectError + 3000, "M_PlikTekstowy.ValidateFilePath", _
-                  ParamName & " nie mo¿e byæ pusty."
+                  ParamName & " nie moze byc pusty."
     End If
     
     If Dir$(Value) = vbNullString Then

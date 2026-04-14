@@ -8,7 +8,7 @@ End Type
 
 Private this As TMKontekstAplikacji
 
-'@Description("Zwraca wspó³dzielony kontekst aplikacji.")
+'@Description("Zwraca wspoldzielony kontekst aplikacji.")
 Public Property Get AppContext() As KontekstAplikacji
 Attribute AppContext.VB_Description = "Zwraca wspó³dzielony kontekst aplikacji."
 
@@ -20,7 +20,7 @@ Attribute AppContext.VB_Description = "Zwraca wspó³dzielony kontekst aplikacji."
 
 End Property
 
-'@Description("Czyœci wspó³dzielony kontekst aplikacji.")
+'@Description("Czysci wspoldzielony kontekst aplikacji.")
 '@EntryPoint
 Public Sub ResetAppContext()
 Attribute ResetAppContext.VB_Description = "Czyœci wspó³dzielony kontekst aplikacji."

@@ -48,26 +48,26 @@ Attribute Adres.VB_Description = "Ustawia adres"
     this.Adres = Trim$(Value)
 End Property
 
-'@Description("Miejscowoœæ")
+'@Description("miejscowosc")
 Public Property Get Miejscowosc() As String
 Attribute Miejscowosc.VB_Description = "Miejscowoœæ"
     Miejscowosc = this.Miejscowosc
 End Property
 
-'@Description("Ustawia miejscowoœæ")
+'@Description("Ustawia miejscowosc")
 '@EntryPoint
 Public Property Let Miejscowosc(ByVal Value As String)
 Attribute Miejscowosc.VB_Description = "Ustawia miejscowoœæ"
     this.Miejscowosc = Trim$(Value)
 End Property
 
-'@Description("Województwo")
+'@Description("Wojewodztwo")
 Public Property Get Wojewodztwo() As String
 Attribute Wojewodztwo.VB_Description = "Województwo"
     Wojewodztwo = this.Wojewodztwo
 End Property
 
-'@Description("Ustawia województwo")
+'@Description("Ustawia wojewodztwo")
 '@EntryPoint
 Public Property Let Wojewodztwo(ByVal Value As String)
 Attribute Wojewodztwo.VB_Description = "Ustawia województwo"
@@ -104,7 +104,7 @@ Attribute Init.VB_Description = "Inicjalizuje rekord kodu pocztowego"
     this.Powiat = Trim$(Powiat)
 End Sub
 
-'@Description("Zwraca reprezentacjê tekstow¹ obiektu")
+'@Description("Zwraca reprezentacje tekstowa obiektu")
 '@EntryPoint
 Public Function ToString() As String
 Attribute ToString.VB_Description = "Zwraca reprezentacjê tekstow¹ obiektu"
@@ -112,13 +112,13 @@ Attribute ToString.VB_Description = "Zwraca reprezentacjê tekstow¹ obiektu"
     ToString = _
         "Kod: " & this.Kod & vbCrLf & _
         "Adres: " & this.Adres & vbCrLf & _
-        "Miejscowoœæ: " & this.Miejscowosc & vbCrLf & _
-        "Województwo: " & this.Wojewodztwo & vbCrLf & _
+        "miejscowosc: " & this.Miejscowosc & vbCrLf & _
+        "Wojewodztwo: " & this.Wojewodztwo & vbCrLf & _
         "Powiat: " & this.Powiat
 
 End Function
 
-'@Description("Zwraca jednowierszow¹ reprezentacjê obiektu")
+'@Description("Zwraca jednowierszowa reprezentacje obiektu")
 '@EntryPoint
 Public Function ToDebugString() As String
 Attribute ToDebugString.VB_Description = "Zwraca jednowierszow¹ reprezentacjê obiektu"

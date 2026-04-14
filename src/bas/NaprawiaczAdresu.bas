@@ -53,31 +53,31 @@ Attribute NaprawAdresBiznesowy.VB_Description = "Naprawia adres biznesowy wskaza
     Dim Summary As String
 
     If Contact Is Nothing Then
-        Err.Raise vbObjectError + 8100, TypeName(Contact), "Parametr Contact nie mo¿e byæ Nothing."
+        Err.Raise vbObjectError + 8100, TypeName(Contact), "Parametr Contact nie moze byc Nothing."
     End If
 
     Parsed = RozpoznajAdresBiznesowy(Contact)
 
     If Len(Parsed.KodPocztowy) = 0 Then
         MsgBox _
-            "Nie uda³o siê rozpoznaæ kodu pocztowego." & vbCrLf & vbCrLf & _
-            "Tekst Ÿród³owy:" & vbCrLf & Parsed.Zrodlo, _
+            "Nie udalo sie rozpoznac kodu pocztowego." & vbCrLf & vbCrLf & _
+            "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
             vbExclamation
         Exit Sub
     End If
 
     If Len(Parsed.Ulica) = 0 Then
         MsgBox _
-            "Nie uda³o siê rozpoznaæ ulicy." & vbCrLf & vbCrLf & _
-            "Tekst Ÿród³owy:" & vbCrLf & Parsed.Zrodlo, _
+            "Nie udalo sie rozpoznac ulicy." & vbCrLf & vbCrLf & _
+            "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
             vbExclamation
         Exit Sub
     End If
 
     If Len(Parsed.Miasto) = 0 Then
         MsgBox _
-            "Nie uda³o siê rozpoznaæ miejscowoœci." & vbCrLf & vbCrLf & _
-            "Tekst Ÿród³owy:" & vbCrLf & Parsed.Zrodlo, _
+            "Nie udalo sie rozpoznac miejscowosci." & vbCrLf & vbCrLf & _
+            "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
             vbExclamation
         Exit Sub
     End If
@@ -113,17 +113,17 @@ Attribute NaprawAdresBiznesowy.VB_Description = "Naprawia adres biznesowy wskaza
     Contact.Save
 
     Summary = _
-        "Adres biznesowy zosta³ uporz¹dkowany." & vbCrLf & vbCrLf & _
-        "By³o:" & vbCrLf & _
+        "Adres biznesowy zostal uporzadkowany." & vbCrLf & vbCrLf & _
+        "Bylo:" & vbCrLf & _
         "Ulica: " & OldStreet & vbCrLf & _
         "Miasto: " & OldCity & vbCrLf & _
-        "Województwo: " & OldState & vbCrLf & _
+        "Wojewodztwo: " & OldState & vbCrLf & _
         "Kod: " & OldPostalCode & vbCrLf & _
         "Kraj: " & OldCountry & vbCrLf & vbCrLf & _
         "Jest:" & vbCrLf & _
         "Ulica: " & Contact.BusinessAddressStreet & vbCrLf & _
         "Miasto: " & Contact.BusinessAddressCity & vbCrLf & _
-        "Województwo: " & Contact.BusinessAddressState & vbCrLf & _
+        "Wojewodztwo: " & Contact.BusinessAddressState & vbCrLf & _
         "Kod: " & Contact.BusinessAddressPostalCode & vbCrLf & _
         "Kraj: " & Contact.BusinessAddressCountry
 
@@ -131,7 +131,7 @@ Attribute NaprawAdresBiznesowy.VB_Description = "Naprawia adres biznesowy wskaza
 
 End Sub
 
-'@Description("Rozpoznaje strukturê adresu biznesowego z danych kontaktu.")
+'@Description("Rozpoznaje strukture adresu biznesowego z danych kontaktu.")
 Private Function RozpoznajAdresBiznesowy(ByVal Contact As Outlook.ContactItem) As TAdresRozpoznany
 Attribute RozpoznajAdresBiznesowy.VB_Description = "Rozpoznaje strukturê adresu biznesowego z danych kontaktu."
 
@@ -158,7 +158,7 @@ Attribute RozpoznajAdresBiznesowy.VB_Description = "Rozpoznaje strukturê adresu 
 
 End Function
 
-'@Description("Buduje tekst Ÿród³owy adresu biznesowego z pól kontaktu.")
+'@Description("Buduje tekst zrodlowy adresu biznesowego z pol kontaktu.")
 Private Function ZbudujTekstZAdresuBiznesowego(ByVal Contact As Outlook.ContactItem) As String
 Attribute ZbudujTekstZAdresuBiznesowego.VB_Description = "Buduje tekst Ÿród³owy adresu biznesowego z pól kontaktu."
 
@@ -190,7 +190,7 @@ Attribute ZbudujTekstZAdresuBiznesowego.VB_Description = "Buduje tekst Ÿród³owy 
 
 End Function
 
-'@Description("Normalizuje koñce linii i nadmiarowe spacje w tekœcie wielowierszowym.")
+'@Description("Normalizuje konce linii i nadmiarowe spacje w tekscie wielowierszowym.")
 Private Function NormalizujTekstWielowierszowy(ByVal Text As String) As String
 Attribute NormalizujTekstWielowierszowy.VB_Description = "Normalizuje koñce linii i nadmiarowe spacje w tekœcie wielowierszowym."
 
@@ -224,7 +224,7 @@ Attribute WyciagnijKodPocztowy.VB_Description = "Zwraca kod pocztowy w formacie 
 
 End Function
 
-'@Description("Rozpoznaje kraj na podstawie tekstu Ÿród³owego i pól kontaktu.")
+'@Description("Rozpoznaje kraj na podstawie tekstu zrodlowego i pol kontaktu.")
 Private Function WyciagnijKraj(ByVal SourceText As String, ByVal Contact As Outlook.ContactItem) As String
 Attribute WyciagnijKraj.VB_Description = "Rozpoznaje kraj na podstawie tekstu Ÿród³owego i pól kontaktu."
 
@@ -249,7 +249,7 @@ Attribute WyciagnijKraj.VB_Description = "Rozpoznaje kraj na podstawie tekstu Ÿr
 
 End Function
 
-'@Description("Okreœla, czy adres nale¿y traktowaæ jako polski.")
+'@Description("Okresla, czy adres nalezy traktowac jako polski.")
 Private Function CzyPolska(ByVal Country As String, ByVal SourceText As String, ByVal PostalCode As String) As Boolean
 Attribute CzyPolska.VB_Description = "Okreœla, czy adres nale¿y traktowaæ jako polski."
 
@@ -278,7 +278,7 @@ Attribute CzyPolska.VB_Description = "Okreœla, czy adres nale¿y traktowaæ jako p
 
 End Function
 
-'@Description("Rozpoznaje województwo z tekstu Ÿród³owego.")
+'@Description("Rozpoznaje wojewodztwo z tekstu zrodlowego.")
 Private Function WyciagnijWojewodztwo(ByVal Text As String) As String
 Attribute WyciagnijWojewodztwo.VB_Description = "Rozpoznaje województwo z tekstu Ÿród³owego."
 
@@ -291,7 +291,7 @@ Attribute WyciagnijWojewodztwo.VB_Description = "Rozpoznaje województwo z tekstu
         "³ódzkie", "ma³opolskie", "mazowieckie", "opolskie", _
         "podkarpackie", "podlaskie", "pomorskie", "œl¹skie", _
         "œwiêtokrzyskie", "warmiñsko-mazurskie", "wielkopolskie", "zachodniopomorskie")
-
+    
     TextLower = LCase$(Text)
 
     For i = LBound(Wojewodztwa) To UBound(Wojewodztwa)
@@ -303,7 +303,7 @@ Attribute WyciagnijWojewodztwo.VB_Description = "Rozpoznaje województwo z tekstu
 
 End Function
 
-'@Description("Rozpoznaje miejscowoœæ z tekstu Ÿród³owego.")
+'@Description("Rozpoznaje miejscowosc z tekstu zrodlowego.")
 '@Ignore ParameterNotUsed
 Private Function WyciagnijMiasto( _
     ByVal Text As String, _
@@ -361,7 +361,7 @@ Attribute WyciagnijMiasto.VB_Description = "Rozpoznaje miejscowoœæ z tekstu Ÿród
 
 End Function
 
-'@Description("Rozpoznaje ulicê z tekstu Ÿród³owego.")
+'@Description("Rozpoznaje ulice z tekstu zrodlowego.")
 Private Function WyciagnijUlice( _
     ByVal Text As String, _
     ByVal PostalCode As String, _
@@ -405,7 +405,7 @@ Attribute WyciagnijUlice.VB_Description = "Rozpoznaje ulicê z tekstu Ÿród³owego.
 
 End Function
 
-'@Description("Sprawdza, czy linia wygl¹da jak linia ulicy.")
+'@Description("Sprawdza, czy linia wyglada jak linia ulicy.")
 Private Function CzyLiniaUlica(ByVal Text As String) As Boolean
 Attribute CzyLiniaUlica.VB_Description = "Sprawdza, czy linia wygl¹da jak linia ulicy."
 
@@ -425,7 +425,7 @@ Attribute CzyLiniaUlica.VB_Description = "Sprawdza, czy linia wygl¹da jak linia 
 
 End Function
 
-'@Description("Normalizuje zapis ulicy i odwraca b³êdny szyk typu '102c ul. Oœwiêcimska'.")
+'@Description("Normalizuje zapis ulicy i odwraca bledny szyk typu '102c ul. Oswiecimska'.")
 Private Function NormalizujUlice(ByVal Value As String) As String
 Attribute NormalizujUlice.VB_Description = "Normalizuje zapis ulicy i odwraca b³êdny szyk typu '102c ul. Oœwiêcimska'."
 
@@ -448,7 +448,7 @@ Attribute NormalizujUlice.VB_Description = "Normalizuje zapis ulicy i odwraca b³
 
 End Function
 
-'@Description("Normalizuje nazwê miejscowoœci.")
+'@Description("Normalizuje nazwe miejscowosci.")
 Private Function NormalizujMiasto(ByVal Value As String) As String
 Attribute NormalizujMiasto.VB_Description = "Normalizuje nazwê miejscowoœci."
 
@@ -461,7 +461,7 @@ Attribute NormalizujMiasto.VB_Description = "Normalizuje nazwê miejscowoœci."
 
 End Function
 
-'@Description("Usuwa z nazwy miejscowoœci dodatki typu województwo i kraj.")
+'@Description("Usuwa z nazwy miejscowosci dodatki typu wojewodztwo i kraj.")
 Private Function UsunDodatkiZMiasta(ByVal Value As String, ByVal State As String, ByVal Country As String) As String
 Attribute UsunDodatkiZMiasta.VB_Description = "Usuwa z nazwy miejscowoœci dodatki typu województwo i kraj."
 
@@ -476,7 +476,7 @@ Attribute UsunDodatkiZMiasta.VB_Description = "Usuwa z nazwy miejscowoœci dodatk
 
 End Function
 
-'@Description("Normalizuje zwyk³y tekst: spacje i przyciêcie.")
+'@Description("Normalizuje zwykly tekst: spacje i przyciecie.")
 Private Function NormalizujProstyTekst(ByVal Value As String) As String
 Attribute NormalizujProstyTekst.VB_Description = "Normalizuje zwyk³y tekst: spacje i przyciêcie."
 

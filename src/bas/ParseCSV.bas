@@ -2,7 +2,7 @@ Attribute VB_Name = "ParseCSV"
 '@Folder("Kody")
 Option Explicit
 
-'@Description("Parsuje pojedynczy wiersz pliku rozdzielanego wskazanym separatorem z obs³ug¹ cudzys³owów.")
+'@Description("Parsuje pojedynczy wiersz pliku rozdzielanego wskazanym separatorem z obsluga cudzyslowow.")
 Public Function ParseDelimitedLine( _
     ByVal LineText As String, _
     Optional ByVal Delimiter As String = ";" _
@@ -18,7 +18,7 @@ Attribute ParseDelimitedLine.VB_Description = "Parsuje pojedynczy wiersz pliku r
     
     If Len(Delimiter) <> 1 Then
         Err.Raise vbObjectError + 2000, "M_Csv.ParseDelimitedLine", _
-                  "Delimiter musi byæ pojedynczym znakiem."
+                  "Delimiter musi byc pojedynczym znakiem."
     End If
     
     ReDim Result(0 To 0)
@@ -66,7 +66,7 @@ Attribute ParseDelimitedLine.VB_Description = "Parsuje pojedynczy wiersz pliku r
 
 End Function
 
-'@Description("Usuwa zewnêtrzne cudzys³owy z pola i normalizuje zapis podwójnych cudzys³owów.")
+'@Description("Usuwa zewnetrzne cudzyslowy z pola i normalizuje zapis podwojnych cudzyslowow.")
 Public Function NormalizeCsvField(ByVal Value As String) As String
 Attribute NormalizeCsvField.VB_Description = "Usuwa zewnêtrzne cudzys³owy z pola i normalizuje zapis podwójnych cudzys³owów."
     

@@ -29,7 +29,7 @@ Private Sub Class_Terminate()
     Set this.Items = Nothing
 End Sub
 
-'@Description("Enumerator kolekcji kodów pocztowych")
+'@Description("Enumerator kolekcji kodow pocztowych")
 '@Enumerator
 '@EntryPoint
 Public Property Get NewEnum() As IUnknown
@@ -38,7 +38,7 @@ Attribute NewEnum.VB_UserMemId = -4
     Set NewEnum = this.Items.[_NewEnum]
 End Property
 
-'@Description("Licznik elementów kolekcji")
+'@Description("Licznik elementow kolekcji")
 '@EntryPoint
 Public Property Get Count() As Long
 Attribute Count.VB_Description = "Licznik elementów kolekcji"
@@ -66,11 +66,11 @@ Attribute Add.VB_Description = "Dodaje rekord kodu pocztowego do kolekcji"
     Key = NormalizeKod(Value.Kod)
     
     If Len(Key) = 0 Then
-        Err.Raise vbObjectError + 1000, TypeName(Me), "Kod pocztowy nie mo¿e byæ pusty."
+        Err.Raise vbObjectError + 1000, TypeName(Me), "Kod pocztowy nie moze byc pusty."
     End If
     
     If this.IndexByKod.Exists(Key) Then
-        Err.Raise vbObjectError + 1001, TypeName(Me), "Kod pocztowy ju¿ istnieje: " & Key
+        Err.Raise vbObjectError + 1001, TypeName(Me), "Kod pocztowy juz istnieje: " & Key
     End If
     
     this.Items.Add Value, Key
@@ -108,7 +108,7 @@ Attribute ByKod.VB_Description = "Zwraca rekord dla podanego kodu pocztowego"
     
 End Property
 
-'@Description("Próbuje zwróciæ rekord dla podanego kodu pocztowego")
+'@Description("Probuje zwrocic rekord dla podanego kodu pocztowego")
 Public Function TryGetByKod(ByVal Kod As String, ByRef Result As KodPocztowy) As Boolean
 Attribute TryGetByKod.VB_Description = "Próbuje zwróciæ rekord dla podanego kodu pocztowego"
     
@@ -125,7 +125,7 @@ Attribute TryGetByKod.VB_Description = "Próbuje zwróciæ rekord dla podanego kodu
     
 End Function
 
-'@Description("Zwraca województwo dla podanego kodu pocztowego")
+'@Description("Zwraca wojewodztwo dla podanego kodu pocztowego")
 '@EntryPoint
 Public Function WojewodztwoDlaKodu(ByVal Kod As String) As String
 Attribute WojewodztwoDlaKodu.VB_Description = "Zwraca województwo dla podanego kodu pocztowego"
@@ -138,7 +138,7 @@ Attribute WojewodztwoDlaKodu.VB_Description = "Zwraca województwo dla podanego k
     
 End Function
 
-'@Description("Zwraca miejscowoœæ dla podanego kodu pocztowego")
+'@Description("Zwraca miejscowosc dla podanego kodu pocztowego")
 '@EntryPoint
 Public Function MiejscowoscDlaKodu(ByVal Kod As String) As String
 Attribute MiejscowoscDlaKodu.VB_Description = "Zwraca miejscowoœæ dla podanego kodu pocztowego"
@@ -174,7 +174,7 @@ Attribute LoadFromCsv.VB_Description = "Wczytuje dane z pliku CSV w kodowaniu UT
         LineText = Trim$(Lines(i))
         
         If i = LBound(Lines) Then
-            ' Pomijamy nag³ówek
+            ' Pomijamy naglowek
         ElseIf Len(LineText) > 0 Then
             
             Fields = ParseDelimitedLine(LineText, ";")
@@ -198,7 +198,7 @@ Attribute LoadFromCsv.VB_Description = "Wczytuje dane z pliku CSV w kodowaniu UT
                 
             Else
                 Err.Raise vbObjectError + 3002, TypeName(Me), _
-                          "Nieprawid³owa liczba pól w wierszu nr " & CStr(i + 1) & "."
+                          "Nieprawidlowa liczba pol w wierszu nr " & CStr(i + 1) & "."
             End If
         End If
     Next i
@@ -212,7 +212,7 @@ End Function
 Private Sub ValidateKey(ByVal Value As Variant, ByVal ParamName As String)
     
     If IsObject(Value) Then
-        Err.Raise vbObjectError + 1010, TypeName(Me), ParamName & " nie mo¿e byæ obiektem."
+        Err.Raise vbObjectError + 1010, TypeName(Me), ParamName & " nie moze byc obiektem."
     End If
     
     If IsEmpty(Value) Then
@@ -224,7 +224,7 @@ End Sub
 Private Sub ValidateObject(ByVal Value As Object, ByVal ParamName As String)
     
     If Value Is Nothing Then
-        Err.Raise vbObjectError + 1012, TypeName(Me), ParamName & " nie mo¿e byæ Nothing."
+        Err.Raise vbObjectError + 1012, TypeName(Me), ParamName & " nie moze byc Nothing."
     End If
     
 End Sub
@@ -232,7 +232,7 @@ End Sub
 Private Sub ValidateFilePath(ByVal Value As String, ByVal ParamName As String)
     
     If Len(Trim$(Value)) = 0 Then
-        Err.Raise vbObjectError + 1013, TypeName(Me), ParamName & " nie mo¿e byæ pusty."
+        Err.Raise vbObjectError + 1013, TypeName(Me), ParamName & " nie moze byc pusty."
     End If
     
     If Dir$(Value) = vbNullString Then
