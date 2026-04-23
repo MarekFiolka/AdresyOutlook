@@ -122,6 +122,39 @@ Makro:
 - uzupełnia województwo (tylko dla Polski)
 - zapisuje kontakt
 
+## Tryb seryjny (przetwarzanie wielu kontaktów)
+
+Projekt został rozszerzony o możliwość seryjnej korekty adresów biznesowych dla wielu kontaktów jednocześnie.
+
+### Jak używać
+
+1. Otwórz folder z kontaktami w Outlooku.
+2. Zaznacz jeden lub więcej kontaktów.
+3. Uruchom makro:
+   `NaprawAdresyBiznesoweZaznaczonychKontaktow`
+
+### Działanie
+
+Makro:
+- przetwarza wszystkie zaznaczone elementy typu `ContactItem`,
+- pomija inne typy elementów (np. maile, zadania),
+- dla każdego kontaktu:
+  - próbuje rozpoznać i uporządkować adres biznesowy,
+  - uzupełnia brakujące dane (np. województwo dla Polski),
+  - zapisuje kontakt tylko jeśli wykryto zmiany.
+
+### Raport końcowy
+
+Po zakończeniu działania wyświetlane jest podsumowanie:
+
+- liczba przetworzonych kontaktów,
+- liczba kontaktów, w których:
+  - **wprowadzono zmiany**,
+  - **nie było potrzeby zmian**,
+  - **wystąpił błąd**,
+- liczba pominiętych elementów niebędących kontaktami.
+
+
 ---
 
 ## 🇵🇱 Logika dla Polski
@@ -159,6 +192,8 @@ Projekt jest przygotowany pod testy Rubberduck:
 - Outlook nie posiada poprawnego parsera adresów dla PL — projekt go zastępuje
 - plik CSV nie powinien być otwarty w Excelu podczas działania (blokada pliku)
 - dane są ładowane leniwie (lazy loading)
+- Kontakty, które już mają poprawnie ustawione pola adresowe, nie są modyfikowane ani ponownie zapisywane.
+- W trybie seryjnym komunikaty dla pojedynczych kontaktów są wyłączone – użytkownik otrzymuje jedno zbiorcze podsumowanie.
 
 ---
 

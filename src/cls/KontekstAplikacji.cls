@@ -32,17 +32,17 @@ Private Sub Class_Terminate()
     Set this.KodyPocztowe = Nothing
 End Sub
 
-'@Description("Sciezka do pliku CSV z baza kodow pocztowych.")
+'@Description "Œciezka do pliku CSV z baza kodow pocztowych."
 '@EntryPoint
 Public Property Get SciezkaKodowPocztowych() As String
-Attribute SciezkaKodowPocztowych.VB_Description = "Œcie¿ka do pliku CSV z baz¹ kodów pocztowych."
+Attribute SciezkaKodowPocztowych.VB_Description = "Œciezka do pliku CSV z baza kodow pocztowych."
     SciezkaKodowPocztowych = this.SciezkaKodowPocztowych
 End Property
 
-'@Description("Ustawia sciezke do pliku CSV z baza kodow pocztowych.")
+'@Description "Ustawia sciezke do pliku CSV z baza kodow pocztowych."
 '@EntryPoint
 Public Property Let SciezkaKodowPocztowych(ByVal Value As String)
-Attribute SciezkaKodowPocztowych.VB_Description = "Ustawia œcie¿kê do pliku CSV z baz¹ kodów pocztowych."
+Attribute SciezkaKodowPocztowych.VB_Description = "Ustawia sciezke do pliku CSV z baza kodow pocztowych."
 
     Dim localValue As String
     localValue = Value
@@ -60,52 +60,52 @@ Attribute SciezkaKodowPocztowych.VB_Description = "Ustawia œcie¿kê do pliku CSV 
 
 End Property
 
-'@Description("Zwraca wspoldzielona baze kodow pocztowych z kontrola inicjalizacji.")
+'@Description "Zwraca wspoldzielona baze kodow pocztowych z kontrola inicjalizacji."
 Public Property Get KodyPocztowe() As KodyPocztowe
-Attribute KodyPocztowe.VB_Description = "Zwraca wspó³dzielon¹ bazê kodów pocztowych z kontrol¹ inicjalizacji."
+Attribute KodyPocztowe.VB_Description = "Zwraca wspoldzielona baze kodow pocztowych z kontrola inicjalizacji."
     EnsureKodyPocztowe
     Set KodyPocztowe = this.KodyPocztowe
 End Property
 
-'@Description("Wymusza ponowne wczytanie bazy kodow pocztowych.")
+'@Description "Wymusza ponowne wczytanie bazy kodow pocztowych."
 '@EntryPoint
 Public Sub ReloadKodyPocztowe()
-Attribute ReloadKodyPocztowe.VB_Description = "Wymusza ponowne wczytanie bazy kodów pocztowych."
+Attribute ReloadKodyPocztowe.VB_Description = "Wymusza ponowne wczytanie bazy kodow pocztowych."
     ResetKodyPocztowe
     EnsureKodyPocztowe
 End Sub
 
-'@Description("Czysci stan bazy kodow pocztowych. Kolejny dostep spowoduje ponowna inicjalizacje.")
+'@Description "Czysci stan bazy kodow pocztowych. Kolejny dostep spowoduje ponowna inicjalizacje."
 Public Sub ResetKodyPocztowe()
-Attribute ResetKodyPocztowe.VB_Description = "Czyœci stan bazy kodów pocztowych. Kolejny dostêp spowoduje ponown¹ inicjalizacjê."
+Attribute ResetKodyPocztowe.VB_Description = "Czysci stan bazy kodow pocztowych. Kolejny dostep spowoduje ponowna inicjalizacje."
     this.CzyKodyPocztoweZainicjalizowane = False
     Set this.KodyPocztowe = Nothing
 End Sub
 
-'@Description("Zwraca wojewodztwo dla wskazanego kodu pocztowego.")
+'@Description "Zwraca wojewodztwo dla wskazanego kodu pocztowego."
 Public Function WojewodztwoDlaKodu(ByVal Kod As String) As String
-Attribute WojewodztwoDlaKodu.VB_Description = "Zwraca województwo dla wskazanego kodu pocztowego."
+Attribute WojewodztwoDlaKodu.VB_Description = "Zwraca wojewodztwo dla wskazanego kodu pocztowego."
     EnsureKodyPocztowe
     WojewodztwoDlaKodu = this.KodyPocztowe.WojewodztwoDlaKodu(Kod)
 End Function
 
-'@Description("Zwraca miejscowosc dla wskazanego kodu pocztowego.")
+'@Description "Zwraca miejscowosc dla wskazanego kodu pocztowego."
 Public Function MiejscowoscDlaKodu(ByVal Kod As String) As String
-Attribute MiejscowoscDlaKodu.VB_Description = "Zwraca miejscowoœæ dla wskazanego kodu pocztowego."
+Attribute MiejscowoscDlaKodu.VB_Description = "Zwraca miejscowosc dla wskazanego kodu pocztowego."
     EnsureKodyPocztowe
     MiejscowoscDlaKodu = this.KodyPocztowe.MiejscowoscDlaKodu(Kod)
 End Function
 
-'@Description("Zwraca True, gdy baza kodow pocztowych zostala juz zainicjalizowana.")
+'@Description "Zwraca True, gdy baza kodow pocztowych zostala juz zainicjalizowana."
 '@EntryPoint
 Public Property Get CzyKodyPocztoweZainicjalizowane() As Boolean
-Attribute CzyKodyPocztoweZainicjalizowane.VB_Description = "Zwraca True, gdy baza kodów pocztowych zosta³a ju¿ zainicjalizowana."
+Attribute CzyKodyPocztoweZainicjalizowane.VB_Description = "Zwraca True, gdy baza kodow pocztowych zostala juz zainicjalizowana."
     CzyKodyPocztoweZainicjalizowane = this.CzyKodyPocztoweZainicjalizowane
 End Property
 
-'@Description("Zwraca krotki opis stanu kontekstu aplikacji.")
+'@Description "Zwraca krotki opis stanu kontekstu aplikacji."
 Public Function ToDebugString() As String
-Attribute ToDebugString.VB_Description = "Zwraca krótki opis stanu kontekstu aplikacji."
+Attribute ToDebugString.VB_Description = "Zwraca krotki opis stanu kontekstu aplikacji."
 
     Dim LiczbaKodow As Long
     

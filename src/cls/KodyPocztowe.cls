@@ -29,19 +29,19 @@ Private Sub Class_Terminate()
     Set this.Items = Nothing
 End Sub
 
-'@Description("Enumerator kolekcji kodow pocztowych")
+'@Description "Enumerator kolekcji kodow pocztowych"
 '@Enumerator
 '@EntryPoint
 Public Property Get NewEnum() As IUnknown
-Attribute NewEnum.VB_Description = "Enumerator kolekcji kodów pocztowych"
+Attribute NewEnum.VB_Description = "Enumerator kolekcji kodow pocztowych"
 Attribute NewEnum.VB_UserMemId = -4
     Set NewEnum = this.Items.[_NewEnum]
 End Property
 
-'@Description("Licznik elementow kolekcji")
+'@Description "Licznik elementow kolekcji"
 '@EntryPoint
 Public Property Get Count() As Long
-Attribute Count.VB_Description = "Licznik elementów kolekcji"
+Attribute Count.VB_Description = "Licznik elementow kolekcji"
     Count = this.Items.Count
 End Property
 
@@ -108,9 +108,9 @@ Attribute ByKod.VB_Description = "Zwraca rekord dla podanego kodu pocztowego"
     
 End Property
 
-'@Description("Probuje zwrocic rekord dla podanego kodu pocztowego")
+'@Description "Probuje zwrocic rekord dla podanego kodu pocztowego"
 Public Function TryGetByKod(ByVal Kod As String, ByRef Result As KodPocztowy) As Boolean
-Attribute TryGetByKod.VB_Description = "Próbuje zwróciæ rekord dla podanego kodu pocztowego"
+Attribute TryGetByKod.VB_Description = "Probuje zwrocic rekord dla podanego kodu pocztowego"
     
     Dim Key As String
     Key = NormalizeKod(Kod)
@@ -125,10 +125,10 @@ Attribute TryGetByKod.VB_Description = "Próbuje zwróciæ rekord dla podanego kodu
     
 End Function
 
-'@Description("Zwraca wojewodztwo dla podanego kodu pocztowego")
+'@Description "Zwraca wojewodztwo dla podanego kodu pocztowego"
 '@EntryPoint
 Public Function WojewodztwoDlaKodu(ByVal Kod As String) As String
-Attribute WojewodztwoDlaKodu.VB_Description = "Zwraca województwo dla podanego kodu pocztowego"
+Attribute WojewodztwoDlaKodu.VB_Description = "Zwraca wojewodztwo dla podanego kodu pocztowego"
     
     Dim Found As KodPocztowy
     
@@ -138,10 +138,10 @@ Attribute WojewodztwoDlaKodu.VB_Description = "Zwraca województwo dla podanego k
     
 End Function
 
-'@Description("Zwraca miejscowosc dla podanego kodu pocztowego")
+'@Description "Zwraca miejscowosc dla podanego kodu pocztowego"
 '@EntryPoint
 Public Function MiejscowoscDlaKodu(ByVal Kod As String) As String
-Attribute MiejscowoscDlaKodu.VB_Description = "Zwraca miejscowoœæ dla podanego kodu pocztowego"
+Attribute MiejscowoscDlaKodu.VB_Description = "Zwraca miejscowosc dla podanego kodu pocztowego"
     
     Dim Found As KodPocztowy
     

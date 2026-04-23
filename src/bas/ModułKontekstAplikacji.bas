@@ -8,9 +8,9 @@ End Type
 
 Private this As TMKontekstAplikacji
 
-'@Description("Zwraca wspoldzielony kontekst aplikacji.")
+'@Description "Zwraca wspoldzielony kontekst aplikacji."
 Public Property Get AppContext() As KontekstAplikacji
-Attribute AppContext.VB_Description = "Zwraca wspó³dzielony kontekst aplikacji."
+Attribute AppContext.VB_Description = "Zwraca wspoldzielony kontekst aplikacji."
 
     If this.AppContext Is Nothing Then
         Set this.AppContext = New KontekstAplikacji
@@ -20,9 +20,9 @@ Attribute AppContext.VB_Description = "Zwraca wspó³dzielony kontekst aplikacji."
 
 End Property
 
-'@Description("Czysci wspoldzielony kontekst aplikacji.")
+'@Description "Czysci wspoldzielony kontekst aplikacji."
 '@EntryPoint
 Public Sub ResetAppContext()
-Attribute ResetAppContext.VB_Description = "Czyœci wspó³dzielony kontekst aplikacji."
+Attribute ResetAppContext.VB_Description = "Czysci wspoldzielony kontekst aplikacji."
     Set this.AppContext = Nothing
 End Sub

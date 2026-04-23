@@ -51,9 +51,9 @@ CleanFail:
               "Szczegoly: " & Err.Description
 End Function
 
-'@Description("Dzieli tekst na linie niezaleznie od stylu zakonczen wiersza.")
+'@Description "Dzieli tekst na linie niezaleznie od stylu zakonczen wiersza."
 Public Function SplitLines(ByVal Text As String) As String()
-Attribute SplitLines.VB_Description = "Dzieli tekst na linie niezale¿nie od stylu zakoñczeñ wiersza."
+Attribute SplitLines.VB_Description = "Dzieli tekst na linie niezaleznie od stylu zakonczen wiersza."
     
     Dim Normalized As String
     
@@ -65,10 +65,10 @@ Attribute SplitLines.VB_Description = "Dzieli tekst na linie niezale¿nie od styl
     
 End Function
 
-'@Description("Sprawdza poprawnosc sciezki do pliku.")
+'@Description "Sprawdza poprawnosc sciezki do pliku."
 '@EntryPoint
 Public Sub ValidateFilePath(ByVal Value As String, ByVal ParamName As String)
-Attribute ValidateFilePath.VB_Description = "Sprawdza poprawnoœæ œcie¿ki do pliku."
+Attribute ValidateFilePath.VB_Description = "Sprawdza poprawnosc sciezki do pliku."
     
     If Len(Trim$(Value)) = 0 Then
         Err.Raise vbObjectError + 3000, "M_PlikTekstowy.ValidateFilePath", _

@@ -48,29 +48,29 @@ Attribute Adres.VB_Description = "Ustawia adres"
     this.Adres = Trim$(Value)
 End Property
 
-'@Description("miejscowosc")
+'@Description "Miejscowosc"
 Public Property Get Miejscowosc() As String
-Attribute Miejscowosc.VB_Description = "Miejscowoœæ"
+Attribute Miejscowosc.VB_Description = "Miejscowosc"
     Miejscowosc = this.Miejscowosc
 End Property
 
-'@Description("Ustawia miejscowosc")
+'@Description "Ustawia miejscowosc"
 '@EntryPoint
 Public Property Let Miejscowosc(ByVal Value As String)
-Attribute Miejscowosc.VB_Description = "Ustawia miejscowoœæ"
+Attribute Miejscowosc.VB_Description = "Ustawia miejscowosc"
     this.Miejscowosc = Trim$(Value)
 End Property
 
-'@Description("Wojewodztwo")
+'@Description "Wojewodztwo"
 Public Property Get Wojewodztwo() As String
-Attribute Wojewodztwo.VB_Description = "Województwo"
+Attribute Wojewodztwo.VB_Description = "Wojewodztwo"
     Wojewodztwo = this.Wojewodztwo
 End Property
 
-'@Description("Ustawia wojewodztwo")
+'@Description "Ustawia wojewodztwo"
 '@EntryPoint
 Public Property Let Wojewodztwo(ByVal Value As String)
-Attribute Wojewodztwo.VB_Description = "Ustawia województwo"
+Attribute Wojewodztwo.VB_Description = "Ustawia wojewodztwo"
     this.Wojewodztwo = Trim$(Value)
 End Property
 
@@ -104,10 +104,10 @@ Attribute Init.VB_Description = "Inicjalizuje rekord kodu pocztowego"
     this.Powiat = Trim$(Powiat)
 End Sub
 
-'@Description("Zwraca reprezentacje tekstowa obiektu")
+'@Description "Zwraca reprezentacje tekstowa obiektu"
 '@EntryPoint
 Public Function ToString() As String
-Attribute ToString.VB_Description = "Zwraca reprezentacjê tekstow¹ obiektu"
+Attribute ToString.VB_Description = "Zwraca reprezentacje tekstowa obiektu"
 
     ToString = _
         "Kod: " & this.Kod & vbCrLf & _
@@ -118,10 +118,10 @@ Attribute ToString.VB_Description = "Zwraca reprezentacjê tekstow¹ obiektu"
 
 End Function
 
-'@Description("Zwraca jednowierszowa reprezentacje obiektu")
+'@Description "Zwraca jednowierszowa reprezentacje obiektu"
 '@EntryPoint
 Public Function ToDebugString() As String
-Attribute ToDebugString.VB_Description = "Zwraca jednowierszow¹ reprezentacjê obiektu"
+Attribute ToDebugString.VB_Description = "Zwraca jednowierszowa reprezentacje obiektu"
 
     ToDebugString = _
         "[" & this.Kod & "] " & _

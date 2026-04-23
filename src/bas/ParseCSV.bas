@@ -2,12 +2,12 @@ Attribute VB_Name = "ParseCSV"
 '@Folder("Kody")
 Option Explicit
 
-'@Description("Parsuje pojedynczy wiersz pliku rozdzielanego wskazanym separatorem z obsluga cudzyslowow.")
+'@Description "Parsuje pojedynczy wiersz pliku rozdzielanego wskazanym separatorem z obsluga cudzyslowow."
 Public Function ParseDelimitedLine( _
     ByVal LineText As String, _
     Optional ByVal Delimiter As String = ";" _
 ) As String()
-Attribute ParseDelimitedLine.VB_Description = "Parsuje pojedynczy wiersz pliku rozdzielanego wskazanym separatorem z obs³ug¹ cudzys³owów."
+Attribute ParseDelimitedLine.VB_Description = "Parsuje pojedynczy wiersz pliku rozdzielanego wskazanym separatorem z obsluga cudzyslowow."
 
     Dim Result() As String
     Dim Buffer As String
@@ -66,9 +66,9 @@ Attribute ParseDelimitedLine.VB_Description = "Parsuje pojedynczy wiersz pliku r
 
 End Function
 
-'@Description("Usuwa zewnetrzne cudzyslowy z pola i normalizuje zapis podwojnych cudzyslowow.")
+'@Description "Usuwa zewnetrzne cudzyslowy z pola i normalizuje zapis podwojnych cudzyslowow."
 Public Function NormalizeCsvField(ByVal Value As String) As String
-Attribute NormalizeCsvField.VB_Description = "Usuwa zewnêtrzne cudzys³owy z pola i normalizuje zapis podwójnych cudzys³owów."
+Attribute NormalizeCsvField.VB_Description = "Usuwa zewnetrzne cudzyslowy z pola i normalizuje zapis podwojnych cudzyslowow."
     
     Dim Text As String
     Text = Trim$(Value)

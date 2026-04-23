@@ -19,6 +19,7 @@ Attribute NaprawAdresBiznesowyBiezacegoKontaktu.VB_Description = "Naprawia adres
 
     Dim CurrentItem As Object
     Dim Contact As Outlook.ContactItem
+    Dim Report As String
 
     On Error Resume Next
     Set CurrentItem = Application.ActiveInspector.CurrentItem
@@ -36,12 +37,18 @@ Attribute NaprawAdresBiznesowyBiezacegoKontaktu.VB_Description = "Naprawia adres
 
     Set Contact = CurrentItem
 
-    NaprawAdresBiznesowy Contact
+    '@Ignore FunctionReturnValueDiscarded
+    NaprawAdresBiznesowy Contact, False, Report
 
 End Sub
 
 '@Description("Naprawia adres biznesowy wskazanego kontaktu Outlook.")
-Public Sub NaprawAdresBiznesowy(ByVal Contact As Outlook.ContactItem)
+Public Function NaprawAdresBiznesowy( _
+    ByVal Contact As Outlook.ContactItem, _
+    Optional ByVal Silent As Boolean = False, _
+    Optional ByRef Report As String, _
+    Optional ByRef WasChanged As Boolean = False _
+) As Boolean
 Attribute NaprawAdresBiznesowy.VB_Description = "Naprawia adres biznesowy wskazanego kontaktu Outlook."
 
     Dim Parsed As TAdresRozpoznany
@@ -59,27 +66,36 @@ Attribute NaprawAdresBiznesowy.VB_Description = "Naprawia adres biznesowy wskaza
     Parsed = RozpoznajAdresBiznesowy(Contact)
 
     If Len(Parsed.KodPocztowy) = 0 Then
-        MsgBox _
-            "Nie udalo sie rozpoznac kodu pocztowego." & vbCrLf & vbCrLf & _
-            "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
-            vbExclamation
-        Exit Sub
+        Report = "Nie udalo sie rozpoznac kodu pocztowego."
+        If Not Silent Then
+            MsgBox _
+                Report & vbCrLf & vbCrLf & _
+                "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
+                vbExclamation
+        End If
+        Exit Function
     End If
 
     If Len(Parsed.Ulica) = 0 Then
-        MsgBox _
-            "Nie udalo sie rozpoznac ulicy." & vbCrLf & vbCrLf & _
-            "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
-            vbExclamation
-        Exit Sub
+        Report = "Nie udalo sie rozpoznac ulicy."
+        If Not Silent Then
+            MsgBox _
+                Report & vbCrLf & vbCrLf & _
+                "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
+                vbExclamation
+        End If
+        Exit Function
     End If
 
     If Len(Parsed.Miasto) = 0 Then
-        MsgBox _
-            "Nie udalo sie rozpoznac miejscowosci." & vbCrLf & vbCrLf & _
-            "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
-            vbExclamation
-        Exit Sub
+        Report = "Nie udalo sie rozpoznac miejscowosci."
+        If Not Silent Then
+            MsgBox _
+                Report & vbCrLf & vbCrLf & _
+                "Tekst zrodlowy:" & vbCrLf & Parsed.Zrodlo, _
+                vbExclamation
+        End If
+        Exit Function
     End If
 
     If Parsed.CzyPolska Then
@@ -90,6 +106,24 @@ Attribute NaprawAdresBiznesowy.VB_Description = "Naprawia adres biznesowy wskaza
         If Len(Trim$(Parsed.Kraj)) = 0 Then
             Parsed.Kraj = "Polska"
         End If
+    End If
+    
+    WasChanged = _
+        (Nz(Contact.BusinessAddressStreet) <> Nz(Parsed.Ulica)) Or _
+        (Nz(Contact.BusinessAddressCity) <> Nz(Parsed.Miasto)) Or _
+        (Nz(Contact.BusinessAddressState) <> Nz(Parsed.Wojewodztwo)) Or _
+        (Nz(Contact.BusinessAddressPostalCode) <> Nz(Parsed.KodPocztowy)) Or _
+        (Nz(Contact.BusinessAddressCountry) <> Nz(Parsed.Kraj))
+        
+    If Not WasChanged Then
+        Report = "Adres byl juz poprawny. Nie wprowadzono zmian."
+        NaprawAdresBiznesowy = True
+
+        If Not Silent Then
+            MsgBox Report, vbInformation
+        End If
+
+        Exit Function
     End If
 
     OldStreet = Nz(Contact.BusinessAddressStreet)
@@ -127,13 +161,18 @@ Attribute NaprawAdresBiznesowy.VB_Description = "Naprawia adres biznesowy wskaza
         "Kod: " & Contact.BusinessAddressPostalCode & vbCrLf & _
         "Kraj: " & Contact.BusinessAddressCountry
 
-    MsgBox Summary, vbInformation
+    Report = Summary
+    NaprawAdresBiznesowy = True
 
-End Sub
+    If Not Silent Then
+        MsgBox Summary, vbInformation
+    End If
 
-'@Description("Rozpoznaje strukture adresu biznesowego z danych kontaktu.")
+End Function
+
+'@Description "Rozpoznaje strukture adresu biznesowego z danych kontaktu."
 Private Function RozpoznajAdresBiznesowy(ByVal Contact As Outlook.ContactItem) As TAdresRozpoznany
-Attribute RozpoznajAdresBiznesowy.VB_Description = "Rozpoznaje strukturê adresu biznesowego z danych kontaktu."
+Attribute RozpoznajAdresBiznesowy.VB_Description = "Rozpoznaje strukture adresu biznesowego z danych kontaktu."
 
     Dim Result As TAdresRozpoznany
     Dim SourceText As String
@@ -158,9 +197,9 @@ Attribute RozpoznajAdresBiznesowy.VB_Description = "Rozpoznaje strukturê adresu 
 
 End Function
 
-'@Description("Buduje tekst zrodlowy adresu biznesowego z pol kontaktu.")
+'@Description "Buduje tekst zrodlowy adresu biznesowego z pol kontaktu."
 Private Function ZbudujTekstZAdresuBiznesowego(ByVal Contact As Outlook.ContactItem) As String
-Attribute ZbudujTekstZAdresuBiznesowego.VB_Description = "Buduje tekst Ÿród³owy adresu biznesowego z pól kontaktu."
+Attribute ZbudujTekstZAdresuBiznesowego.VB_Description = "Buduje tekst zrodlowy adresu biznesowego z pol kontaktu."
 
     Dim Text As String
 
@@ -190,9 +229,9 @@ Attribute ZbudujTekstZAdresuBiznesowego.VB_Description = "Buduje tekst Ÿród³owy 
 
 End Function
 
-'@Description("Normalizuje konce linii i nadmiarowe spacje w tekscie wielowierszowym.")
+'@Description "Normalizuje konce linii i nadmiarowe spacje w tekscie wielowierszowym."
 Private Function NormalizujTekstWielowierszowy(ByVal Text As String) As String
-Attribute NormalizujTekstWielowierszowy.VB_Description = "Normalizuje koñce linii i nadmiarowe spacje w tekœcie wielowierszowym."
+Attribute NormalizujTekstWielowierszowy.VB_Description = "Normalizuje konce linii i nadmiarowe spacje w tekscie wielowierszowym."
 
     Dim localText As String
     localText = Text
@@ -224,9 +263,9 @@ Attribute WyciagnijKodPocztowy.VB_Description = "Zwraca kod pocztowy w formacie 
 
 End Function
 
-'@Description("Rozpoznaje kraj na podstawie tekstu zrodlowego i pol kontaktu.")
+'@Description "Rozpoznaje kraj na podstawie tekstu zrodlowego i pol kontaktu."
 Private Function WyciagnijKraj(ByVal SourceText As String, ByVal Contact As Outlook.ContactItem) As String
-Attribute WyciagnijKraj.VB_Description = "Rozpoznaje kraj na podstawie tekstu Ÿród³owego i pól kontaktu."
+Attribute WyciagnijKraj.VB_Description = "Rozpoznaje kraj na podstawie tekstu zrodlowego i pol kontaktu."
 
     Dim TextLower As String
     Dim CountryField As String
@@ -249,9 +288,9 @@ Attribute WyciagnijKraj.VB_Description = "Rozpoznaje kraj na podstawie tekstu Ÿr
 
 End Function
 
-'@Description("Okresla, czy adres nalezy traktowac jako polski.")
+'@Description "Okresla, czy adres nalezy traktowac jako polski."
 Private Function CzyPolska(ByVal Country As String, ByVal SourceText As String, ByVal PostalCode As String) As Boolean
-Attribute CzyPolska.VB_Description = "Okreœla, czy adres nale¿y traktowaæ jako polski."
+Attribute CzyPolska.VB_Description = "Okresla, czy adres nalezy traktowac jako polski."
 
     Dim CountryLower As String
 
@@ -278,9 +317,9 @@ Attribute CzyPolska.VB_Description = "Okreœla, czy adres nale¿y traktowaæ jako p
 
 End Function
 
-'@Description("Rozpoznaje wojewodztwo z tekstu zrodlowego.")
+'@Description "Rozpoznaje wojewodztwo z tekstu zrodlowego."
 Private Function WyciagnijWojewodztwo(ByVal Text As String) As String
-Attribute WyciagnijWojewodztwo.VB_Description = "Rozpoznaje województwo z tekstu Ÿród³owego."
+Attribute WyciagnijWojewodztwo.VB_Description = "Rozpoznaje wojewodztwo z tekstu zrodlowego."
 
     Dim Wojewodztwa As Variant
     Dim i As Long
@@ -303,7 +342,7 @@ Attribute WyciagnijWojewodztwo.VB_Description = "Rozpoznaje województwo z tekstu
 
 End Function
 
-'@Description("Rozpoznaje miejscowosc z tekstu zrodlowego.")
+'@Description "Rozpoznaje miejscowosc z tekstu zrodlowego."
 '@Ignore ParameterNotUsed
 Private Function WyciagnijMiasto( _
     ByVal Text As String, _
@@ -311,7 +350,7 @@ Private Function WyciagnijMiasto( _
     ByVal State As String, _
     ByVal Country As String _
 ) As String
-Attribute WyciagnijMiasto.VB_Description = "Rozpoznaje miejscowoœæ z tekstu Ÿród³owego."
+Attribute WyciagnijMiasto.VB_Description = "Rozpoznaje miejscowosc z tekstu zrodlowego."
 
     Dim Lines() As String
     Dim i As Long
@@ -361,7 +400,7 @@ Attribute WyciagnijMiasto.VB_Description = "Rozpoznaje miejscowoœæ z tekstu Ÿród
 
 End Function
 
-'@Description("Rozpoznaje ulice z tekstu zrodlowego.")
+'@Description "Rozpoznaje ulice z tekstu zrodlowego."
 Private Function WyciagnijUlice( _
     ByVal Text As String, _
     ByVal PostalCode As String, _
@@ -369,7 +408,7 @@ Private Function WyciagnijUlice( _
     ByVal State As String, _
     ByVal Country As String _
 ) As String
-Attribute WyciagnijUlice.VB_Description = "Rozpoznaje ulicê z tekstu Ÿród³owego."
+Attribute WyciagnijUlice.VB_Description = "Rozpoznaje ulice z tekstu zrodlowego."
 
     Dim Lines() As String
     Dim i As Long
@@ -405,9 +444,9 @@ Attribute WyciagnijUlice.VB_Description = "Rozpoznaje ulicê z tekstu Ÿród³owego.
 
 End Function
 
-'@Description("Sprawdza, czy linia wyglada jak linia ulicy.")
+'@Description "Sprawdza, czy linia wyglada jak linia ulicy."
 Private Function CzyLiniaUlica(ByVal Text As String) As Boolean
-Attribute CzyLiniaUlica.VB_Description = "Sprawdza, czy linia wygl¹da jak linia ulicy."
+Attribute CzyLiniaUlica.VB_Description = "Sprawdza, czy linia wyglada jak linia ulicy."
 
     Dim Value As String
 
@@ -425,9 +464,9 @@ Attribute CzyLiniaUlica.VB_Description = "Sprawdza, czy linia wygl¹da jak linia 
 
 End Function
 
-'@Description("Normalizuje zapis ulicy i odwraca bledny szyk typu '102c ul. Oswiecimska'.")
+'@Description "Normalizuje zapis ulicy i odwraca bledny szyk typu '102c ul. Oswiecimska'."
 Private Function NormalizujUlice(ByVal Value As String) As String
-Attribute NormalizujUlice.VB_Description = "Normalizuje zapis ulicy i odwraca b³êdny szyk typu '102c ul. Oœwiêcimska'."
+Attribute NormalizujUlice.VB_Description = "Normalizuje zapis ulicy i odwraca bledny szyk typu '102c ul. Oswiecimska'."
 
     Dim localValue As String
     localValue = Value
@@ -448,9 +487,9 @@ Attribute NormalizujUlice.VB_Description = "Normalizuje zapis ulicy i odwraca b³
 
 End Function
 
-'@Description("Normalizuje nazwe miejscowosci.")
+'@Description "Normalizuje nazwe miejscowosci."
 Private Function NormalizujMiasto(ByVal Value As String) As String
-Attribute NormalizujMiasto.VB_Description = "Normalizuje nazwê miejscowoœci."
+Attribute NormalizujMiasto.VB_Description = "Normalizuje nazwe miejscowosci."
 
     Dim localValue As String
     localValue = Value
@@ -461,9 +500,9 @@ Attribute NormalizujMiasto.VB_Description = "Normalizuje nazwê miejscowoœci."
 
 End Function
 
-'@Description("Usuwa z nazwy miejscowosci dodatki typu wojewodztwo i kraj.")
+'@Description "Usuwa z nazwy miejscowosci dodatki typu wojewodztwo i kraj."
 Private Function UsunDodatkiZMiasta(ByVal Value As String, ByVal State As String, ByVal Country As String) As String
-Attribute UsunDodatkiZMiasta.VB_Description = "Usuwa z nazwy miejscowoœci dodatki typu województwo i kraj."
+Attribute UsunDodatkiZMiasta.VB_Description = "Usuwa z nazwy miejscowosci dodatki typu wojewodztwo i kraj."
 
     Dim localValue As String
     localValue = Value
@@ -476,9 +515,9 @@ Attribute UsunDodatkiZMiasta.VB_Description = "Usuwa z nazwy miejscowoœci dodatk
 
 End Function
 
-'@Description("Normalizuje zwykly tekst: spacje i przyciecie.")
+'@Description "Normalizuje zwykly tekst: spacje i przyciecie."
 Private Function NormalizujProstyTekst(ByVal Value As String) As String
-Attribute NormalizujProstyTekst.VB_Description = "Normalizuje zwyk³y tekst: spacje i przyciêcie."
+Attribute NormalizujProstyTekst.VB_Description = "Normalizuje zwykly tekst: spacje i przyciecie."
 
     Dim localValue As String
     localValue = Value
